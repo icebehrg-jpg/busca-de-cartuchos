@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>Encontre o Suprimento Original para sua Impressora | Kalunga</title>
+    <meta name="description"
+        content="Use nossa ferramenta gratuita para encontrar o cartucho ou toner ideal para sua impressora. HP, Epson, Canon, Brother e muito mais. Originais com entrega rápida.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Encontre o Suprimento Original para sua Impressora | Kalunga">
+    <meta property="og:description"
+        content="Encontrar o suprimento ideal para sua impressora nunca foi tão fácil. Marcas como HP, Epson, Canon, Brother e muito mais. Originais com Frete Grátis para todo Brasil.">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://static.kalunga.com.br/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://static.kalunga.com.br/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://static.kalunga.com.br/favicon-16x16.png">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.kalunga.com.br/busca-de-cartuchos">
+    <meta property="og:image" content="https://www.kalunga.com.br/img/busca-cartuchos-og.jpg">
+
+    <!-- Schema: FAQPage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Como saber qual cartucho é compatível com minha impressora?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Use nossa ferramenta de busca: selecione a marca e o modelo da sua impressora e visualize imediatamente todos os cartuchos e toners compatíveis disponíveis em estoque."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Cartucho original faz diferença na qualidade de impressão?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Sim. Suprimentos originais são formulados especificamente para cada modelo de impressora, garantindo maior nitidez, cores mais vivas e durabilidade superior nas impressões."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Cartucho remanufaturado pode danificar minha impressora?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Pode. Cartuchos remanufaturados apresentam desgaste natural por já terem sido utilizados, o que aumenta o risco de vazamentos internos e pode causar danos irreversíveis ao equipamento — além de invalidar a garantia do fabricante."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Qual a diferença entre cartucho e toner?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Cartuchos usam tinta líquida e são comuns em impressoras jato de tinta domésticas. Toners utilizam tinta em pó e são encontrados em impressoras a laser, geralmente em ambientes corporativos com alto volume de impressão."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Posso comprar cartuchos originais com entrega para todo o Brasil?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Sim. Kalunga entrega suprimentos originais para todo o território nacional com rapidez e segurança."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Nosso CSS personalizado -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Topo preto com logo -->
+    <header class="top-bar">
+        <div class="container">
+            <a href="/" class="logo" title="Kalunga - Página inicial">
+                <img src="https://static.kalunga.com.br/especial/logotipo/logo-kalunga-branco.svg" alt="Kalunga"
+                    onerror="this.onerror=null; this.src='https://via.placeholder.com/200x50/000000/ffffff?text=Kalunga'">
+            </a>
+        </div>
+    </header>
+    <div class="main-container px-6">
+
+        <!-- ========================================
+             FERRAMENTA DE BUSCA (TOPO)
+        ========================================= -->
+        <div class="search-section">
+            <h2 class="search-title">Encontre o Suprimento Original para sua Impressora!</h2>
+            <div class="search-wrapper">
+                <div class="search-input-group">
+                    <!-- <i class="fas fa-search"></i> -->
+                    <input type="text" id="searchInput" placeholder="Ex: HP 2774, DeskJet 2852e, C090A..."
+                        autocomplete="off">
+                    <button class="btn" id="searchBtn" title="Buscar">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="autocomplete-dropdown" id="autocompleteDropdown"></div>
+            </div>
+        </div>
+
+        <!-- Seção de filtros -->
+        <div class="filters-section" id="filtersSection" style="display: none;">
+            <div class="brands-grid" id="brandsGrid"></div>
+            <div class="brand-types-container" id="brandTypesContainer"></div>
+        </div>
+
+        <!-- Resultados da busca exata -->
+        <div class="results-section" id="resultsSection" style="display: none;">
+            <div class="results-header">
+                <h3>Resultados encontrados</h3>
+                <span class="results-count" id="resultsCount">0 itens</span>
+            </div>
+            <div id="resultsContainer"></div>
+        </div>
+
+        <!-- Lista de impressoras -->
+        <div class="impressoras-list" id="impressorasContainer" style="display: none;"></div>
+
+        <!-- ========================================
+             MENSAGEM INICIAL (ANTIGA welcomeMessage) - AGORA OCULTA POR PADRÃO
+        ========================================= -->
+        <div class="text-center py-5" id="welcomeMessage" style="display: none;">
+            <i class="fas fa-print" style="font-size: 4rem; color: var(--gray-300); margin-bottom: 1rem;"></i>
+           <!--  <h3 style="color: var(--secondary); font-weight: 300;">Carregando dados...</h3> -->
+            <!-- <p class="text-muted">Aguarde enquanto carregamos a planilha de produtos.</p> -->
+        </div>
+
+        <!-- ==================== NOVO: MINHAS IMPRESSORAS ==================== -->
+        <div class="my-printers-section" id="myPrintersSection" style="display: none;">
+            <h3 class="my-printers-title">Minhas Impressoras</h3>
+            <div class="my-printers-grid" id="myPrintersContainer"></div>
+            <div class="my-printers-empty" id="myPrintersEmpty">
+                <p><a href="https://cliente.kalunga.com.br/" target="_blank" rel="noopener noreferrer">Faça Login</a> e
+                    tenha acesso rápido às suas impressoras salvas.</p>
+            </div>
+        </div>
+
+        <!-- ========================================
+             RODAPÉ SEO (sempre visível)
+        ========================================= -->
+        <footer class="seo-footer mt-5">
+            <div class="seo-content">
+                <!-- Resumo (sempre visível) -->
+                <div class="seo-summary">
+                    <h4 class="seo-title">Encontre o Cartucho Perfeito para a Sua Impressora</h4>
+                    <p class="seo-text">
+                        Chega de dúvidas na hora de repor o suprimento da sua impressora. Com nossa ferramenta de busca
+                        de cartuchos,
+                        você identifica em segundos o cartucho ou toner original compatível com o seu modelo — seja HP,
+                        Epson, Canon,
+                        Brother ou Samsung. Informe a marca e o modelo da impressora, e deixe o restante com a gente.
+                    </p>
+                </div>
+
+                <!-- Botão "Leia mais" -->
+                <button class="btn btn-link p-0 mb-2" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#seoFullText" aria-expanded="false" aria-controls="seoFullText">
+                    <i class="fas fa-chevron-down me-1"></i> Leia mais
+                </button>
+
+                <!-- Conteúdo completo (inicialmente oculto) -->
+                <div class="collapse" id="seoFullText">
+                    <div class="mt-3">
+                        <section aria-labelledby="como-funciona-heading">
+                            <h4 id="como-funciona-heading" class="seo-title">Como funciona o localizador de cartuchos?
+                            </h4>
+                            <p class="seo-text">
+                                Encontrar o suprimento certo nunca foi tão simples. Nossa ferramenta foi desenvolvida
+                                para eliminar a confusão
+                                entre códigos e versões de cartuchos. Basta seguir três passos:
+                            </p>
+                            <ol class="seo-list">
+                                <li><strong>Selecione a marca</strong> da sua impressora (HP, Canon, Epson, Brother,
+                                    Samsung e outras).</li>
+                                <li><strong>Informe o modelo</strong> do equipamento — você encontra essa informação na
+                                    etiqueta da impressora.</li>
+                                <li><strong>Escolha o cartucho</strong> indicado e finalize sua compra com segurança.
+                                </li>
+                            </ol>
+                            <p class="seo-text">
+                                O resultado é uma lista de suprimentos originais compatíveis, com opções de tinta e
+                                toner, para que você
+                                imprima com a qualidade que o seu equipamento merece.
+                            </p>
+                        </section>
+
+                        <section aria-labelledby="originais-heading" class="mt-4">
+                            <h4 id="originais-heading" class="seo-title">Por que escolher cartuchos originais?</h4>
+                            <p class="seo-text">
+                                Economizar na hora de comprar o suprimento pode sair muito caro depois. Cartuchos
+                                remanufaturados ou genéricos
+                                comprometem a qualidade das impressões, aumentam o risco de vazamentos internos e, em
+                                muitos casos, anulam a
+                                garantia do fabricante. Com suprimentos originais, você garante:
+                            </p>
+                            <ul class="seo-list">
+                                <li><strong>Impressões nítidas e vibrantes</strong>, com textos precisos e fotos de alta
+                                    definição.</li>
+                                <li><strong>Maior rendimento por página</strong>, o que representa real economia a longo
+                                    prazo.</li>
+                                <li><strong>Compatibilidade total</strong> com o sistema da sua impressora, sem erros ou
+                                    travamentos.</li>
+                                <li><strong>Tinta resistente</strong> à água, ao tempo e à exposição à luz.</li>
+                                <li><strong>Garantia preservada</strong> — o fabricante cobre o equipamento quando você
+                                    usa insumos corretos.</li>
+                            </ul>
+                        </section>
+
+                        <section aria-labelledby="marcas-heading" class="mt-4">
+                            <h4 id="marcas-heading" class="seo-title">Cartuchos originais das principais marcas</h4>
+                            <p class="seo-text">Nossa loja conta com o catálogo completo de suprimentos das marcas
+                                líderes do mercado:</p>
+                            <ul class="seo-list">
+                                <li><strong>HP</strong> — Cartuchos e toners projetados para alto rendimento, com
+                                    impressões resistentes por mais de 50 anos. Fabricados com material reciclado.</li>
+                                <li><strong>Epson</strong> — Tecnologia DURABrite Ultra e Micro Piezo para impressões
+                                    ultrarrápidas, brilhantes e resistentes à água. Recargas para EcoTank com rendimento
+                                    de até 7.500 páginas coloridas.</li>
+                                <li><strong>Canon</strong> — Cartuchos e refis Mega Tank com tinta de fórmula especial,
+                                    qualidade fotográfica e rendimento de até 7.600 páginas.</li>
+                                <li><strong>Brother</strong> — Suprimentos de alto desempenho com nitidez profissional,
+                                    disponíveis nas cores preta, ciano, magenta e amarela. Rendimento de até 1.500
+                                    páginas.</li>
+                                <li><strong>Samsung</strong> — Toners a laser desenvolvidos para alto volume de
+                                    impressão em ambientes corporativos, com rendimento de até 15.000 páginas.</li>
+                            </ul>
+                        </section>
+
+                        <section aria-labelledby="faq-heading" class="mt-4">
+                            <h4 id="faq-heading" class="seo-title">Perguntas frequentes sobre cartuchos de impressora
+                            </h4>
+                            <dl class="seo-faq">
+                                <dt>Como saber qual cartucho é compatível com minha impressora?</dt>
+                                <dd>Use nossa ferramenta de busca: selecione a marca e o modelo da sua impressora e
+                                    visualize imediatamente todos os cartuchos e toners compatíveis disponíveis em
+                                    estoque.</dd>
+                                <dt>Cartucho original faz diferença na qualidade de impressão?</dt>
+                                <dd>Sim. Suprimentos originais são formulados especificamente para cada modelo de
+                                    impressora, garantindo maior nitidez, cores mais vivas e durabilidade superior nas
+                                    impressões.</dd>
+                                <dt>Cartucho remanufaturado pode danificar minha impressora?</dt>
+                                <dd>Pode. Cartuchos remanufaturados apresentam desgaste natural por já terem sido
+                                    utilizados, o que aumenta o risco de vazamentos internos e pode causar danos
+                                    irreversíveis ao equipamento — além de invalidar a garantia do fabricante.</dd>
+                                <dt>Qual a diferença entre cartucho e toner?</dt>
+                                <dd>Cartuchos usam tinta líquida e são comuns em impressoras jato de tinta domésticas.
+                                    Toners utilizam tinta em pó e são encontrados em impressoras a laser, geralmente em
+                                    ambientes corporativos com alto volume de impressão.</dd>
+                                <dt>Posso comprar cartuchos originais com entrega para todo o Brasil?</dt>
+                                <dd>Sim. Kalunga entrega suprimentos originais para todo o território nacional com
+                                    rapidez e segurança.</dd>
+                            </dl>
+                        </section>
+
+                        <section aria-labelledby="cta-heading" class="mt-4">
+                            <h4 id="cta-heading" class="seo-title">Imprima com qualidade, sem complicação</h4>
+                            <p class="seo-text">
+                                Não perca tempo procurando o código certo ou arriscando em suprimentos de procedência
+                                duvidosa. Nossa
+                                ferramenta de busca conecta você ao cartucho original ideal para a sua impressora em
+                                poucos cliques — com
+                                o melhor preço, estoque garantido e entrega ágil para todo o Brasil.
+                            </p>
+                            <a href="#searchInput" role="button" class="btn btn-primary">Encontrar meu cartucho
+                                agora</a>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modelosModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-print me-2" style="color: var(--primary);"></i>
+                        Impressoras compatíveis
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalBody"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Fuse.js -->
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+    <!-- SheetJS -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+    <!-- Nosso JavaScript personalizado -->
+    <script src="script.js"></script>
+</body>
+
+</html>

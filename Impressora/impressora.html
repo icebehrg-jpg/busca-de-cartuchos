@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://static.kalunga.com.br/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://static.kalunga.com.br/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://static.kalunga.com.br/favicon-16x16.png">
+    
+    <title>Carregando detalhes da impressora...</title>
+    <meta name="description" content="">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- CSS específico para a página de impressora -->
+    <link rel="stylesheet" href="style-impressora.css">
+</head>
+<body>
+    <header class="top-bar">
+        <div class="container">
+            <a href="/" class="logo" title="Kalunga - Página inicial">
+                <img src="https://static.kalunga.com.br/especial/logotipo/logo-kalunga-branco.svg" alt="Kalunga"
+                    onerror="this.onerror=null; this.src='https://via.placeholder.com/200x50/000000/ffffff?text=Kalunga'">
+            </a>
+        </div>
+    </header>
+    
+    <div class="main-container px-6">
+        <button class="btn btn-outline-secondary btn-voltar" onclick="window.history.back()">
+            <i class="fas fa-arrow-left"></i> Voltar
+        </button>
+        
+        <!-- Detalhes da impressora -->
+        <div id="impressoraDetalhe" class="impressora-detalhe">
+            <!-- Informações da impressora serão inseridas aqui -->
+        </div>
+        
+        <!-- Lista de cartuchos (com borda) -->
+        <div id="cartuchosContainer" class="cartuchos-lista">
+            <!-- Lista de cartuchos será inserida aqui -->
+        </div>
+        
+        <!-- Rodapé SEO dinâmico -->
+        <footer id="seoFooter" class="seo-footer-impressora" style="display: none;">
+            <h4 id="seoTitle"></h4>
+            <p id="seoDescription"></p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+    <script src="impressora.js"></script>
+</body>
+</html>
