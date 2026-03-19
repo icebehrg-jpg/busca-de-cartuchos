@@ -937,8 +937,10 @@ function exibirImpressoras() {
         btn.addEventListener('click', function (e) {
             e.preventDefault();
             const modelo = this.dataset.modelo;
-            salvarEstadoParaDetalhe();
-            window.location.href = `/Impressora/impressora.html?modelo=${encodeURIComponent(modelo)}`;
+            // Salvar estado (opcional)
+            sessionStorage.setItem('scrollPos', window.scrollY);
+            // Redirecionar para a página da impressora na raiz
+            window.location.href = `impressora.html?modelo=${encodeURIComponent(modelo)}`;
         });
     });
 }
