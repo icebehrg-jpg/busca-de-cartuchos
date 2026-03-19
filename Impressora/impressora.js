@@ -1,3 +1,9 @@
+// Verifica se o SheetJS foi carregado
+if (typeof XLSX === 'undefined') {
+    console.error('SheetJS (XLSX) não foi carregado. Verifique a conexão com a internet e a URL do script.');
+    document.getElementById('impressoraDetalhe').innerHTML = '<p class="text-danger">Erro ao carregar bibliotecas. Tente novamente mais tarde.</p>';
+}
+
 // Funções auxiliares
 function formatarPreco(valor) {
     if (!valor) return 'R$ 99,90';
@@ -174,9 +180,12 @@ function adicionarBotaoMultiEListeners(container) {
 let cartuchos = [];
 
 function carregarDados() {
+    // Mostrar mensagem de carregamento
+    document.getElementById('impressoraDetalhe').innerHTML = '<p class="text-center"><i class="fas fa-spinner fa-spin"></i> Carregando dados...</p>';
+
     fetch('https://img.kalunga.com.br/Hotsite/Compatibilidades_Agrupado.xlsx')
         .then(response => {
-            if (!response.ok) throw new Error('Arquivo não encontrado');
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             return response.arrayBuffer();
         })
         .then(data => {
@@ -188,7 +197,7 @@ function carregarDados() {
         })
         .catch(error => {
             console.error('Erro ao carregar planilha:', error);
-            document.getElementById('impressoraDetalhe').innerHTML = '<p class="text-danger">Erro ao carregar dados. Tente novamente mais tarde.</p>';
+            document.getElementById('impressoraDetalhe').innerHTML = '<p class="text-danger">Erro ao carregar dados. Verifique sua conexão e tente novamente mais tarde.</p>';
         });
 }
 
@@ -236,7 +245,7 @@ function exibirDetalhe() {
     const urlParams = new URLSearchParams(window.location.search);
     const modeloParam = urlParams.get('modelo');
     if (!modeloParam) {
-        document.getElementById('impressoraDetalhe').innerHTML = '<p class="text-danger">Modelo não informado.</p>';
+        document.getElementById('impressoraDetalhe').innerHTML = '<p class="text-danger">Modelo não informado na URL.</p>';
         return;
     }
 
