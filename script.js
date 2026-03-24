@@ -369,7 +369,7 @@ function showAlert(message) {
     const alert = document.createElement('div');
     alert.className = 'upload-alert';
     alert.innerHTML = `
-        <i class="fas fa-info-circle" style="color: var(--primary); margin-right: 0.5rem;"></i>
+        <i class="" style="color: var(--primary); margin-right: 0.5rem;"></i>
         ${message}
     `;
     document.body.appendChild(alert);
@@ -827,17 +827,17 @@ function exibirImpressoras() {
                         <p><small><i class="fas fa-layer-group"></i> Famílias: ${familiasStr}</small></p>
                     </div>
                     <button class="toggle-cartuchos" data-modelo="${mod.modelo}" data-target="${idSublista}">
-                        <i class="fas fa-chevron-down"></i> Ver cartuchos
+                        <i class="fas fa-chevron-down"></i> Ver Cartuchos
                     </button>
                     <button class="btn-veja-mais" data-modelo="${mod.modelo}">
-                        <i class="fas fa-info-circle"></i> Veja mais Informações
+                        <i class=""></i> Mais Informações
                     </button>
                     <button class="${btnClass}" title="${isAdded ? 'Já adicionada' : 'Adicionar às Minhas Impressoras'}" 
                             data-modelo="${mod.modelo}" 
                             data-marca="${mod.marca}" 
                             data-tipo="${mod.tipo}" 
                             data-foto="${mod.foto_impressora || ''}">
-                        <i class="fas ${isAdded ? 'fa-check' : 'fa-plus'}"></i>
+                        <i class="fas ${isAdded ? 'fa-heart' : 'fa-heart'}"></i>
                     </button>
                 </div>
                 <div class="cartuchos-sublista" id="${idSublista}" style="display: none;"></div>
@@ -867,7 +867,7 @@ function exibirImpressoras() {
             if (s.id !== atualId && s.style.display === 'block') {
                 s.style.display = 'none';
                 const btn = document.querySelector(`.toggle-cartuchos[data-target="${s.id}"]`);
-                if (btn) btn.innerHTML = '<i class="fas fa-chevron-down"></i> Ver cartuchos';
+                if (btn) btn.innerHTML = '<i class="fas fa-chevron-down"></i> Ver Cartuchos';
             }
         });
     }
@@ -892,13 +892,13 @@ function exibirImpressoras() {
                 cartuchosHtml += '</div>';
                 sublista.innerHTML = cartuchosHtml;
                 sublista.style.display = 'block';
-                if (botao) botao.innerHTML = '<i class="fas fa-chevron-up"></i> Ocultar cartuchos';
+                if (botao) botao.innerHTML = '<i class="fas fa-chevron-up"></i> Ocultar Cartuchos';
 
                 // Adicionar botão de compra múltipla nesta sublista
                 adicionarBotaoMultiEListeners(sublista);
             } else {
                 sublista.style.display = 'none';
-                if (botao) botao.innerHTML = '<i class="fas fa-chevron-down"></i> Ver cartuchos';
+                if (botao) botao.innerHTML = '<i class="fas fa-chevron-down"></i> Ver Cartuchos';
             }
         });
     });
@@ -921,18 +921,18 @@ function exibirImpressoras() {
                 cartuchosHtml += '</div>';
                 sublista.innerHTML = cartuchosHtml;
                 sublista.style.display = 'block';
-                this.innerHTML = '<i class="fas fa-chevron-up"></i> Ocultar cartuchos';
+                this.innerHTML = '<i class="fas fa-chevron-up"></i> Ocultar Cartuchos';
 
                 // Adicionar botão de compra múltipla nesta sublista
                 adicionarBotaoMultiEListeners(sublista);
             } else {
                 sublista.style.display = 'none';
-                this.innerHTML = '<i class="fas fa-chevron-down"></i> Ver cartuchos';
+                this.innerHTML = '<i class="fas fa-chevron-down"></i> Ver Cartuchos';
             }
         });
     });
 
-    // Event listeners para botões "Veja mais Informações"
+    // Event listeners para botões "Mais Informações"
     document.querySelectorAll('.btn-veja-mais').forEach(btn => {
         btn.addEventListener('click', function (e) {
             e.preventDefault();
@@ -1042,7 +1042,7 @@ function renderMyPrinters() {
                         <span class="my-printer-marca">${p.marca}</span>
                     </div>
                     <div class="my-printer-actions">
-                        <button class="btn-buy-cartridges" title="Ver cartuchos compatíveis" onclick="pesquisarImpressora('${p.modelo}')">
+                        <button class="btn-buy-cartridges" title="Ver Cartuchos compatíveis" onclick="pesquisarImpressora('${p.modelo}')">
                             <i class="fas fa-shopping-cart"></i> Comprar
                         </button>
                         <button class="btn-remove-printer" title="Remover impressora">
@@ -1076,7 +1076,7 @@ function addPrinter(printer) {
         if (btn) {
             btn.classList.add('added');
             btn.title = 'Já adicionada';
-            btn.innerHTML = '<i class="fas fa-check"></i>';
+            btn.innerHTML = '<i class="fa-solid fa-heart"></i>';
         }
     }
 }
@@ -1090,8 +1090,8 @@ function removePrinter(modelo) {
     const btn = document.querySelector(`.btn-add-printer[data-modelo="${modelo}"]`);
     if (btn) {
         btn.classList.remove('added');
-        btn.title = 'Adicionar às Minhas Impressoras';
-        btn.innerHTML = '<i class="fas fa-plus"></i>';
+        btn.title = 'Adicionado às Minhas Impressoras';
+        btn.innerHTML = '<i class="far fa-heart"></i>'; 
     }
 }
 
